@@ -1,8 +1,9 @@
 <template>
-    <div class="box">
+    <div class="box formulario">
         <div class="columns">
             <div class="column is-8" role="form" aria-label="Formulário para criação de uma nova tarefa">
-                <input type="text" name="" id="" placeholder="Qual tarefa deseja iniciar?" v-model="descricao"/>
+                <input type="text" name="" id="" placeholder="Qual tarefa deseja iniciar?" v-model="descricao" required/>
+                <span v-el:msg-erro id="msg-erro" style="color: red; display: none; font-weight: 600;">Campo Obrigatório</span>
             </div>
             <div class="column ">
                 <TemporizadorTarefa @aotemporizadorFinalizado="finalizarTarefa"/>
@@ -17,6 +18,7 @@ import TemporizadorTarefa from './TemporizadorTarefas.vue';
 
 export default defineComponent({
     name: 'FormularioTarefas',
+    emits: ['aoSalvarTarefa'],
     data() {
         return {
             descricao: '',
@@ -25,7 +27,10 @@ export default defineComponent({
     components: {TemporizadorTarefa},
     methods: {
         finalizarTarefa(tempoDecorrido: number): void {
-            console.log(tempoDecorrido)
+            this.$emit('aoSalvarTarefa', {
+                duracaoEmSegundos: tempoDecorrido,
+                descricao: this.descricao
+            })
             this.descricao = '';
         }
     }
@@ -40,5 +45,10 @@ export default defineComponent({
         font-size: 18px;
         font-weight: 500;
         padding-left: 5px;
+    }
+
+    .formulario {
+        color: var(--texto-primario);
+        background-color: var(--bg-primario);
     }
 </style>
