@@ -17,6 +17,10 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { useStore } from '@/store';
+import { ADICIONA_PROJETO, ALTERA_PROJETO, NOTIFICAR } from '@/store/tipo-mutacoes';
+import { TipoNotificacao } from '@/interfaces/INotificacao';
+import useNotificador from '@/hooks/notificador';
+// import { notificaoMixin } from '@/minixs/notificar';
 
 export default defineComponent({
     nome: 'FormularioAluraTracker',
@@ -25,13 +29,14 @@ export default defineComponent({
             type: String
         }
     },
+    // mixins: [notificaoMixin],
     mounted() {
-        if(this.id) {
+        if (this.id) {
             const projeto = this.store.state.projetos.find(proj => proj.id == this.id)
             this.nomeDoProjeto = projeto?.nome || ''
         }
     },
-    data(){
+    data() {
         return {
             nomeDoProjeto: ''
         }
@@ -39,21 +44,25 @@ export default defineComponent({
     methods: {
         salvar() {
             if (this.id) {
-                this.store.commit('ALTERA_PROJETO', {
+                this.store.commit(ALTERA_PROJETO, {
                     id: this.id,
                     nome: this.nomeDoProjeto
                 });
             } else {
-                this.store.commit('ADICIONA_PROJETO', this.nomeDoProjeto);
+                this.store.commit(ADICIONA_PROJETO, this.nomeDoProjeto);
             }
             this.nomeDoProjeto = '';
+            this.notificar(TipoNotificacao.SUCESSO, 'Excelente!', 'Projeto cadastrado com sucesso!');
             this.$router.push('/projetos');
-        }
+        },
     },
     setup() {
         const store = useStore()
+        const {notificar} = useNotificador()
+        
         return {
             store,
+            notificar
         }
     }
 })

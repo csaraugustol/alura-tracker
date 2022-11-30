@@ -1,6 +1,6 @@
 <template>
     <section>
-        <router-link to="/projetos/novo" class="button">
+        <router-link to="/projetos/novo" class="button mb-3">
             <span class="icon is-small">
                 <i class="fas fa-plus"></i>
             </span>
