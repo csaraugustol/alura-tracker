@@ -45,21 +45,22 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue';
 import { useStore } from '@/store';
-import { EXCLUIR_PROJETO } from '@/store/tipo-mutacoes';
 import { RouterLink } from 'vue-router';
+import { DELETAR_PROJETOS, OBTER_PROJETOS } from '@/store/tipo-acoes';
 
 export default defineComponent({
     nome: 'ListaProjetos',
     setup() {
         const store = useStore()
+        store.dispatch(OBTER_PROJETOS)
         return {
-            projetos: computed(() => store.state.projetos),
+            projetos: computed(() => store.state.projeto.projetos),
             store
         }
     },
     methods: {
         excluir(id: string) {
-            this.store.commit(EXCLUIR_PROJETO, id)
+            this.store.dispatch(DELETAR_PROJETOS, id)
         }
     }
 })

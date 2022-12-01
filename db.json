@@ -1,0 +1,45 @@
+{
+  "projetos": [
+    {
+      "id": 1,
+      "nome": "Alura Tracker"
+    },
+    {
+      "id": 2,
+      "nome": "Teste"
+    }
+  ],
+  "tarefas": [
+    {
+      "id": 1,
+      "duracaoEmSegundos": 120,
+      "descricao": "Criação Alura Tracker",
+      "projeto": {
+        "id": 2,
+        "nome": "Alura Tracker"
+      }
+    },
+    {
+      "id": 2,
+      "nome": "Teste"
+    },
+    {
+      "duracaoEmSegundos": 5,
+      "descricao": "Teste",
+      "projeto": {
+        "id": 1,
+        "nome": "Alura Tracker"
+      },
+      "id": 3
+    },
+    {
+      "duracaoEmSegundos": 5,
+      "descricao": "Testea",
+      "projeto": {
+        "id": 1,
+        "nome": "Alura Tracker"
+      },
+      "id": 4
+    }
+  ]
+}
