@@ -12,7 +12,7 @@
         <TarefaComponente v-for="(tarefa, index) in tarefas" :key="index" :tarefa="tarefa"
             @aoTarefaClicada="selecionarTarefa" />
         <BoxTarefas v-if="listaEstaVazia">
-            Você não está muito produtivo hoje!
+            Nenhuma tarefa encontrada!
         </BoxTarefas>
     </div>
 
@@ -84,8 +84,9 @@ export default defineComponent({
         // const tarefas = computed(() => store.state.tarefa.tarefas.filter(t => !filtro.value || t.descricao.includes(filtro.value)))
 
         watchEffect(() => {
-            console.log(filtro.value)
+            store.dispatch(OBTER_TAREFAS, filtro.value);
         })
+
         return {
             tarefas: computed(() => store.state.tarefa.tarefas),
             store,
